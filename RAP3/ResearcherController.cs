@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,12 +10,15 @@ namespace RAP3
 {
     class ResearcherController
     {
-        public List<Researcher> researchers;
+        private List<Researcher> masterResearcherList;
+        private ObservableCollection<Researcher> viewableResearcherList;
         DatabaseHandler db;
+
 
         public ResearcherController()
         {
-            researchers = new List<Researcher>();
+            masterResearcherList = new List<Researcher>();
+            viewableResearcherList = new ObservableCollection<Researcher>();
             db = new DatabaseHandler();
         }
 
@@ -24,7 +28,7 @@ namespace RAP3
             string cmd = "select `given_name`, `family_name` from researcher;";
             MySqlDataReader rdr = db.RunCommand(cmd);
 
-            researchers = new List<Researcher>();
+            masterResearcherList = new List<Researcher>();
             Researcher res;
 
             while (rdr.Read())
@@ -35,26 +39,18 @@ namespace RAP3
                 res = new Researcher();
                 res.Name = first_name + last_name;
 
-                researchers.Add(res);
+                masterResearcherList.Add(res);
+            }
+
+            foreach (var curRes in masterResearcherList)
+            {
+                viewableResearcherList.Add(curRes);
             }
         }
 
-        public void PrintResearchers()
+        public ObservableCollection<Researcher> GetResearchers()
         {
-            foreach (var res in researchers)
-            {
-                res.print();
-            }
-        }
-
-        public List<string> GetAllNames()
-        {
-            List<string> names = new List<string>();
-            foreach( var res in researchers)
-            {
-                names.Add(res.Name);
-            }
-            return names;
+            return viewableResearcherList;
         }
 
     }

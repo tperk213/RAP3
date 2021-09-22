@@ -24,9 +24,9 @@ namespace RAP3
 
         }
 
-        public void print()
+        public override string ToString()
         {
-            Console.WriteLine(Name);
+            return Name;
         }
 
     }

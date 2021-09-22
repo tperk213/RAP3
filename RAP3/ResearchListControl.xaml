@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListBox x:Name="ResearchersList"/>
+        <ListBox x:Name="ResearchersList" ItemsSource="{Binding Source={StaticResource researcherList}}"/>
 
     </Grid>
 </UserControl>

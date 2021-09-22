@@ -25,19 +25,11 @@ namespace RAP3
         public ResearchListControl()
         {
             InitializeComponent();
-            researcherController = new ResearcherController();
+            researcherController = (ResearcherController) Application.Current.FindResource("researcherController");
             researcherController.LoadResearchers();
-            PopulateResearcherList();
+            
         }
         
-        private void PopulateResearcherList()
-        {
-            List<string> researcher_names = researcherController.GetAllNames();
-            foreach(string name in researcher_names)
-            {
-                ResearchersList.Items.Add(name);
-            }
-        }
 
     }
 }
