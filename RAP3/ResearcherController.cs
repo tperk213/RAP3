@@ -25,7 +25,7 @@ namespace RAP3
         public void LoadResearchers()
         {
             Console.WriteLine("Loading Researchers ....");
-            string cmd = "select `given_name`, `family_name` from researcher;";
+            string cmd = "select `given_name`, `family_name`, `email` from researcher;";
             MySqlDataReader rdr = db.RunCommand(cmd);
 
             masterResearcherList = new List<Researcher>();
@@ -35,9 +35,11 @@ namespace RAP3
             {
                 string first_name = rdr.GetString("given_name");
                 string last_name = rdr.GetString("family_name");
+                string email = rdr.GetString("email");
 
                 res = new Researcher();
                 res.Name = first_name + last_name;
+                res.Email = email;
 
                 masterResearcherList.Add(res);
             }

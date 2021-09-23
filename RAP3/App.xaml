@@ -8,5 +8,7 @@
         <ObjectDataProvider x:Key="researcherList"
                             ObjectInstance="{StaticResource researcherController}"
                             MethodName="GetResearchers"/>
+        <local:Researcher x:Key="researcherDetails"/>
+   
     </Application.Resources>
 </Application>

@@ -29,7 +29,13 @@ namespace RAP3
             researcherController.LoadResearchers();
             
         }
-        
+
+        private void selectionOfResearcher(object sender, SelectionChangedEventArgs e)
+        {
+            researcherDetails.DataContext = e.AddedItems[0];
+        }
+
+
 
     }
 }
