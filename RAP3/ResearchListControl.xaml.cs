@@ -37,8 +37,8 @@ namespace RAP3
 
         private void jobTitleSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show("DropDownSelection is :" + e.AddedItems[0]);
-            
+            //MessageBox.Show("DropDownSelection is :" + e.AddedItems[0]);
+            researcherController.FilterByLevel(e.AddedItems[0].ToString());
 
         }
 

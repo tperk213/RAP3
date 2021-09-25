@@ -68,8 +68,13 @@ namespace RAP3
             return viewableResearcherList;
         }
 
-        public void FilterByLevel()
+        public void FilterByLevel(String requestedLevel)
         {
+            viewableResearcherList.Clear();
+            
+            var filtered = from researcher in masterResearcherList where researcher.Level == requestedLevel select researcher;
+
+            filtered.ToList().ForEach(viewableResearcherList.Add);
             // Filter the reasearchers by the level indicated in the dropdown box should be an event handler
         }
 

@@ -72,10 +72,6 @@ namespace RAP3
             FormalName = LastName + ", " + FirstName + " (" + Title + ")";
         }
 
-        public void FilterResearch(JobLevel l)
-        {
-            //Filter the researchers who have l from the master list into the visable list using LINQ statemnet
-        }
 
     }
 }
