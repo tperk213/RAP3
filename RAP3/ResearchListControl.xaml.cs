@@ -35,6 +35,13 @@ namespace RAP3
             /*researcherDetails.DataContext = e.AddedItems[0];*/
         }
 
+        private void jobTitleSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MessageBox.Show("DropDownSelection is :" + e.AddedItems[0]);
+            
+
+        }
+
 
 
     }

@@ -2,13 +2,22 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:RAP3"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <local:ResearcherController x:Key="researcherController"/>
         <ObjectDataProvider x:Key="researcherList"
                             ObjectInstance="{StaticResource researcherController}"
                             MethodName="GetResearchers"/>
-        <local:Researcher x:Key="researcherDetails"/>
-   
+        <ObjectDataProvider x:Key="jobLevel"
+                            ObjectType="{x:Type sys:Enum}"
+                            MethodName="GetValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:JobLevel"/>
+            </ObjectDataProvider.MethodParameters>
+
+        </ObjectDataProvider>
+            
+
     </Application.Resources>
 </Application>
