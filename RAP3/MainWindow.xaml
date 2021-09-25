@@ -13,6 +13,5 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <local:ResearchListControl x:Name="ResearcherListView" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-        <local:ResearcherDetailsControl x:Name="ResearcherDetailsView" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Window>

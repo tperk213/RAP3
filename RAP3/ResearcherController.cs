@@ -25,7 +25,7 @@ namespace RAP3
         public void LoadResearchers()
         {
             Console.WriteLine("Loading Researchers ....");
-            string cmd = "select `given_name`, `family_name`, `email` from researcher;";
+            string cmd = "select `given_name`, `family_name`, `email`, `title`, `level` from researcher;";
             MySqlDataReader rdr = db.RunCommand(cmd);
 
             masterResearcherList = new List<Researcher>();
@@ -36,10 +36,23 @@ namespace RAP3
                 string first_name = rdr.GetString("given_name");
                 string last_name = rdr.GetString("family_name");
                 string email = rdr.GetString("email");
-
+                string title = rdr.GetString("title");
+                Char level;
+                if (rdr.IsDBNull(rdr.GetOrdinal("level")))
+                {
+                    level = 'n';
+                }
+                else
+                {
+                    level = rdr.GetChar("level");
+                }
                 res = new Researcher();
-                res.Name = first_name + last_name;
+                res.FirstName = first_name;
+                res.LastName = last_name;
                 res.Email = email;
+                res.Title = title;
+                res.Level = Char.ToString(level);
+                res.setFormalName();
 
                 masterResearcherList.Add(res);
             }
@@ -53,6 +66,11 @@ namespace RAP3
         public ObservableCollection<Researcher> GetResearchers()
         {
             return viewableResearcherList;
+        }
+
+        public void FilterByLevel()
+        {
+            // Filter the reasearchers by the level indicated in the dropdown box should be an event handler
         }
 
     }

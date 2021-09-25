@@ -32,7 +32,7 @@ namespace RAP3
 
         private void selectionOfResearcher(object sender, SelectionChangedEventArgs e)
         {
-            researcherDetails.DataContext = e.AddedItems[0];
+            /*researcherDetails.DataContext = e.AddedItems[0];*/
         }
 
 
