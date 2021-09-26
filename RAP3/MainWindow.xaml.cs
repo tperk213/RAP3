@@ -24,6 +24,7 @@ namespace RAP3
         {
             InitializeComponent();
             ResearcherListView.SelectResearcherEvent += LoadResearcherDetails;
+
         }
 
         // 
@@ -31,5 +32,11 @@ namespace RAP3
         {
             ResearcherDetailsViewContent.SelectResearcher(sender, e);
         }
+
+       /* private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window2 win2 = new Window2();
+            win2.Show();
+        }*/
     }
 }
