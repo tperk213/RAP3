@@ -13,7 +13,7 @@
                             ObjectType="{x:Type sys:Enum}"
                             MethodName="GetValues">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local:JobLevel"/>
+                <x:Type TypeName="local:EmploymentLevel"/>
             </ObjectDataProvider.MethodParameters>
 
         </ObjectDataProvider>

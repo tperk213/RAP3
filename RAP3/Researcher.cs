@@ -6,27 +6,20 @@ using System.Threading.Tasks;
 
 namespace RAP3
 {
-    enum JobLevel
-    {
-        A,
-        B,
-        C,
-        D,
-        E
-    }
+
 
 
 
     class Researcher
     {
-        public Dictionary<String, String> JobToJobTitle = new Dictionary<string, string>
+        private Dictionary<EmploymentLevel, String> EmploymentLevelToJobTitle = new Dictionary<EmploymentLevel, String>
             {
-                { "A", "Postdoc" },
-                { "B", "Lecturer" },
-                { "C", "Senior Lecturer" },
-                { "D", "Associate Profesor" },
-                { "E", "Profesor" },
-                { "n", "Student"}
+                { EmploymentLevel.Postdoc, "Postdoc"},
+                { EmploymentLevel.Lecturer, "Lecturer"},
+                { EmploymentLevel.SeniorLecturer, "Senior Lecturer" },
+                { EmploymentLevel.AssociateProfesor, "Associate Profesor"},
+                { EmploymentLevel.Profesor, "Profesor" },
+                { EmploymentLevel.Student, "Student" }
             };
         public String FirstName { get; set; }
         public String LastName { get; set; }
@@ -34,8 +27,8 @@ namespace RAP3
 
         public String FormalName { get; set;}
 
-        private string _level; 
-        public string Level  
+        private EmploymentLevel _level { get; set; }  
+        public EmploymentLevel Level  
         {
             get
             {
@@ -43,7 +36,7 @@ namespace RAP3
             } 
             set 
             {
-                JobTitle = JobToJobTitle[value];
+                JobTitle = EmploymentLevelToJobTitle[value];
                 _level = value;
             }
         }

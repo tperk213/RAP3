@@ -22,27 +22,27 @@ namespace RAP3
     {
         private ResearcherController researcherController;
 
+        public event EventHandler SelectResearcherEvent;
         public ResearchListControl()
         {
             InitializeComponent();
             researcherController = (ResearcherController) Application.Current.FindResource("researcherController");
-            researcherController.LoadResearchers();
             
         }
 
         private void selectionOfResearcher(object sender, SelectionChangedEventArgs e)
         {
             /*researcherDetails.DataContext = e.AddedItems[0];*/
+            SelectResearcherEvent?.Invoke(sender, e);
         }
 
         private void jobTitleSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //MessageBox.Show("DropDownSelection is :" + e.AddedItems[0]);
-            researcherController.FilterByLevel(e.AddedItems[0].ToString());
+            researcherController.FilterByLevel((EmploymentLevel)Enum.Parse(typeof(EmploymentLevel), e.AddedItems[0].ToString()));
 
         }
 
-
-
+       
     }
 }

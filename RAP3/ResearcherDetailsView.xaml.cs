@@ -16,20 +16,26 @@ using System.Windows.Shapes;
 namespace RAP3
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ResearcherDetailsView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ResearcherDetailsView : UserControl
     {
-        public MainWindow()
+        public ResearcherDetailsView()
         {
             InitializeComponent();
-            ResearcherListView.SelectResearcherEvent += LoadResearcherDetails;
         }
 
-        // 
-        private void LoadResearcherDetails(object sender, EventArgs e)
+        public void SelectResearcher(object sender, EventArgs ea)
         {
-            ResearcherDetailsViewContent.SelectResearcher(sender, e);
+            var e = (SelectionChangedEventArgs)ea;
+            if (e.AddedItems.Count == 0)
+            {
+                StaffDetails.DataContext = null;
+            }
+            else
+            {
+                StaffDetails.DataContext = e.AddedItems[0];
+            }
         }
     }
 }
