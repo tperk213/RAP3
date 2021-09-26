@@ -12,17 +12,20 @@ namespace RAP3
     {
         private List<Researcher> masterResearcherList;
         private ObservableCollection<Researcher> viewableResearcherList;
-
+        private SearchTree tree;
 
         public ResearcherController()
         {
             viewableResearcherList = new ObservableCollection<Researcher>();
             masterResearcherList = DatabaseAdapter.LoadResearchers();
-            
+            tree = new SearchTree();
+
             foreach (var curRes in masterResearcherList)
             {
                 viewableResearcherList.Add(curRes);
+                tree.InsertIntoTree(curRes);
             }
+            
 
         }
 
@@ -36,7 +39,7 @@ namespace RAP3
         public void FilterByLevel(EmploymentLevel requestedLevel)
         {
             viewableResearcherList.Clear();
-            
+            tree.Clear();
             if( requestedLevel != EmploymentLevel.All)
             {
                 var filtered = from researcher in masterResearcherList where researcher.Level == requestedLevel select researcher;
@@ -49,6 +52,15 @@ namespace RAP3
                 masterResearcherList.ForEach(viewableResearcherList.Add);
             }
 
+            viewableResearcherList.ToList().ForEach(tree.InsertIntoTree);
+
+        }
+
+        public void FilterByName(String name)
+        {
+            viewableResearcherList.Clear();
+            var filtered = tree.Search(name);
+            filtered.ToList().ForEach(viewableResearcherList.Add);
         }
 
     }

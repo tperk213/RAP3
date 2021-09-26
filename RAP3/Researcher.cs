@@ -21,8 +21,34 @@ namespace RAP3
                 { EmploymentLevel.Profesor, "Profesor" },
                 { EmploymentLevel.Student, "Student" }
             };
-        public String FirstName { get; set; }
-        public String LastName { get; set; }
+        private String _firstName { get; set; }
+        public String FirstName
+        {
+            get
+            {
+                return _firstName;
+            }
+            set
+            {
+                _firstName = value;
+                FullName = value + " " + LastName;
+            }
+        }
+        private String _lastName;
+        public String LastName 
+        {
+            get
+            {
+                return _lastName;
+            }
+            set
+            {
+                _lastName = value;
+                FullName = FirstName + " " + value;
+            }
+        }
+
+        public String FullName { get; set; }
         public String Title { get; set; }
 
         public String FormalName { get; set;}

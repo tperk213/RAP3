@@ -43,6 +43,11 @@ namespace RAP3
 
         }
 
-       
+        private void FilterByName(object sender, TextChangedEventArgs e)
+        {
+            researcherController.FilterByName(NameFilter.Text);
+        }
+
+
     }
 }
