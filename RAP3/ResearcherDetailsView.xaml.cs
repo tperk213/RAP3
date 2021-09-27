@@ -34,7 +34,10 @@ namespace RAP3
             }
             else
             {
-                StaffDetails.DataContext = e.AddedItems[0];
+                //call to database to get researcher details
+                Researcher r = DatabaseAdapter.LoadResearcherDetails((Researcher)e.AddedItems[0]);
+                StaffDetails.DataContext = r;
+                ResearcherPublications.ItemsSource = r.Publications;
             }
         }
     }

@@ -9,9 +9,20 @@
     <StackPanel x:Name="StaffDetails">
         <StackPanel Orientation="Horizontal">
             <Label>Name</Label>
-            <Label Content="{Binding Path=FirstName}">
-
-            </Label>
+            <Label Content="{Binding Path=FirstName}"/>
         </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label>Unit</Label>
+            <Label Content="{Binding Path=SchoolUnit}"/>
+        </StackPanel>
+        <ListView Grid.Column="0" x:Name="ResearcherPublications" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Year" DisplayMemberBinding="{Binding Doi}"/>
+                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
+                </GridView>
+            </ListView.View>
+
+        </ListView>
     </StackPanel>
 </UserControl>

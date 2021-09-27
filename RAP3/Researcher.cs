@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace RAP3
                 { EmploymentLevel.Profesor, "Profesor" },
                 { EmploymentLevel.Student, "Student" }
             };
+        public int Id { get; set; }
         private String _firstName { get; set; }
         public String FirstName
         {
@@ -71,10 +73,14 @@ namespace RAP3
         public String Email { get; set; }
         public String PhotoUrl { get; set; }
         public String CommencedInstitution { get; set; }
+
+        public String CommencedPosition { get; set; }
         public Double Tenure { get; set; }
         public int NumberOfPublications { get; set; }
-        public int Average { get; set; }
-        public int PerformanceLevel { get; set; }
+        
+        public String SchoolUnit { get; set; }
+
+        public ObservableCollection<Publication> Publications { get; set; }
 
         public Researcher()
         {
