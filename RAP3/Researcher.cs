@@ -71,10 +71,15 @@ namespace RAP3
         public String Email { get; set; }
         public String PhotoUrl { get; set; }
         public String CommencedInstitution { get; set; }
+        public String CommencedCurrentPosition { get; set; }
         public Double Tenure { get; set; }
         public int NumberOfPublications { get; set; }
         public int Average { get; set; }
         public int PerformanceLevel { get; set; }
+        public int ID { get; set; }
+        public String Unit { get; set; }
+        public String Degree { get; set; }
+
 
         public Researcher()
         {

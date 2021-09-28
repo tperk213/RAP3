@@ -10,14 +10,19 @@ namespace RAP3
 {
     class ResearcherController
     {
+        //DatabaseAdapter referece
+        private readonly DatabaseAdapter dba;
         private List<Researcher> masterResearcherList;
         private ObservableCollection<Researcher> viewableResearcherList;
         private SearchTree tree;
 
+        public Researcher CurrentlySelected { get; private set; }
+
         public ResearcherController()
         {
             viewableResearcherList = new ObservableCollection<Researcher>();
-            masterResearcherList = DatabaseAdapter.LoadResearchers();
+            List<Researcher> researchers = DatabaseAdapter.LoadResearchers();
+            masterResearcherList = researchers;
             tree = new SearchTree();
 
             foreach (var curRes in masterResearcherList)
@@ -61,6 +66,15 @@ namespace RAP3
             viewableResearcherList.Clear();
             var filtered = tree.Search(name);
             filtered.ToList().ForEach(viewableResearcherList.Add);
+        }
+
+
+        //Get all the details of selected researcher
+        public void SelectItem(Researcher researcher)
+        {
+            CurrentlySelected = researcher;
+
+            dba.fetchFullResearcherDetails(CurrentlySelected);
         }
 
     }
