@@ -6,12 +6,104 @@
              xmlns:local="clr-namespace:RAP3"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel x:Name="StaffDetails">
-        <StackPanel Orientation="Horizontal">
-            <Label>Name</Label>
-            <Label Content="{Binding Path=FirstName}">
 
-            </Label>
+    <StackPanel x:Name="ResearchDetails" Grid.Column="1" Margin="10,10,10,10">
+
+        <Grid VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition MaxWidth="160" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Name:" />
+                <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=FullName}" />
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Title:" />
+                <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=Title}" />
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Unit:" />
+                <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=Unit}" />
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Campus:" />
+                <Label Grid.Row="3" Grid.Column="1" Content="{Binding Path=Campus}" />
+
+                <Label Grid.Row="4" Grid.Column="0" Content="Email:" />
+                <Label Grid.Row="4" Grid.Column="1" Content="{Binding Path=Email}" />
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Current Job:" />
+                <Label Grid.Row="5" Grid.Column="1" Content="{Binding Path=CurrentJob}" />
+
+                <Label Grid.Row="6" Grid.Column="0" Content="Commenced with institution:" />
+                <Label Grid.Row="6" Grid.Column="1" Content="{Binding Path=firstCommencedPosition}" />
+
+                <Label Grid.Row="7" Grid.Column="0" Content="Commenced current position:" />
+                <Label Grid.Row="7" Grid.Column="1" Content="{Binding Path=currentPositionCommenced}" />
+            </Grid>
+
+            <Image Source="{Binding Path=Photo}" Grid.Column="1" Width="120" VerticalAlignment="Top" />
+        </Grid>
+        <StackPanel Orientation="Vertical">
+            <Label Content="Previous Positions:"/>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Tenure:"/>
+                    <Label Content="{Binding Path=Tenure}"/>
+                    <Label Content="3-year average:"/>
+                    <Label Content="{Binding Path=ThreeYearAvg}"/>
+                    <Label Content="Performance:"/>
+                    <Label Content="{Binding Path=getPerformance}"/>
+                    <Label Content="Degree:"/>
+                    <Label Content="{Binding Path=Degree}"/>
+                    <Label Content="Supervisior"/>
+                    <Label Content="{Binding Path=Supervisor}"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="No. of Publications:"/>
+                        <Label Content="{Binding Path=PublicationCount}"/>
+                        <Button Content="Cumulutive Count"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="supervisions:"/>
+                        <Label Content="{Binding Path=CountSupervision}"/>
+                        <Button Content="Show Names"/>
+                    </StackPanel>
+                </StackPanel>
+                
+                
+            </StackPanel>
+
+            <StackPanel>
+
+                <ListView Grid.Column="0" x:Name="PublicationLists"  ItemsSource="{Binding Source={StaticResource researcherList}}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Publications" DisplayMemberBinding="{Binding Title}"/>
+
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+            </StackPanel>
         </StackPanel>
+
     </StackPanel>
 </UserControl>

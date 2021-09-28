@@ -28,14 +28,7 @@ namespace RAP3
         public void SelectResearcher(object sender, EventArgs ea)
         {
             var e = (SelectionChangedEventArgs)ea;
-            if (e.AddedItems.Count == 0)
-            {
-                StaffDetails.DataContext = null;
-            }
-            else
-            {
-                StaffDetails.DataContext = e.AddedItems[0];
-            }
+            
         }
     }
 }

@@ -22,7 +22,7 @@ namespace RAP3
                 { 'D', EmploymentLevel.AssociateProfesor },
                 { 'E', EmploymentLevel.Profesor },
             };
-        
+
         public static void GetConnection()
         {
             if (conn == null)
@@ -32,27 +32,27 @@ namespace RAP3
                 conn = new MySqlConnection(connectionString);
             }
         }
-       /* public DatabaseHandler()
-        {
-            server = "alacritas.cis.utas.edu.au";
-            database = "kit206";
-            uid = "kit206";
-            password = "kit206";
+        /* public DatabaseHandler()
+         {
+             server = "alacritas.cis.utas.edu.au";
+             database = "kit206";
+             uid = "kit206";
+             password = "kit206";
 
-            Console.WriteLine("Connecting to Database ....");
-            string connectionString = String.Format("Database={0}; Data Source={1}; User Id ={2}; Password={3}; SSL Mode=0",
-                database, server, uid, password);
-            try
-            {
-                conn = new MySqlConnection(connectionString);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception caught {0}", e);
-            }
-            Console.WriteLine("Database connection established ....");
+             Console.WriteLine("Connecting to Database ....");
+             string connectionString = String.Format("Database={0}; Data Source={1}; User Id ={2}; Password={3}; SSL Mode=0",
+                 database, server, uid, password);
+             try
+             {
+                 conn = new MySqlConnection(connectionString);
+             }
+             catch (Exception e)
+             {
+                 Console.WriteLine("Exception caught {0}", e);
+             }
+             Console.WriteLine("Database connection established ....");
 
-        }*/
+         }*/
 
         public static MySqlDataReader RunCommand(String command)
         {
@@ -99,11 +99,37 @@ namespace RAP3
                     level = CharToEmploymentLevel[rdr.GetChar("level")];
                 }
                 res.Level = level;
-                
+
                 researcherList.Add(res);
             }
 
             return researcherList;
         }
+
+
+        //Fetch full researcher details
+        //
+        public void fetchFullResearcherDetails(Researcher researcher) {
+            int id = researcher.ID;
+
+            string cmd = "select*from researcher where `id` = `id`";
+            MySqlDataReader rdr = RunCommand(cmd);
+
+            if (rdr.Read())
+            {
+                researcher.FirstName = rdr.GetString("given_name");
+                researcher.LastName = rdr.GetString("family_name");
+                researcher.Title = rdr.GetString("title");
+                researcher.Campus = rdr.GetString("campus");
+                researcher.Email = rdr.GetString("email");
+                researcher.CommencedCurrentPosition = rdr.GetString("current_start");
+                researcher.CommencedInstitution = rdr.GetString("utas_start");
+                researcher.PhotoUrl = rdr.GetString("photo");
+                researcher.Unit = rdr.GetString("unit");
+                researcher.Degree = rdr.GetString("degree");
+            }
+            rdr.Close();
+        }
+       
     }
 }

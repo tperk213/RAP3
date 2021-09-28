@@ -47,7 +47,5 @@ namespace RAP3
         {
             researcherController.FilterByName(NameFilter.Text);
         }
-
-
     }
 }
