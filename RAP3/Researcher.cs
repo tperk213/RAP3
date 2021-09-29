@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,10 +77,10 @@ namespace RAP3
         public int NumberOfPublications { get; set; }
         public int Average { get; set; }
         public int PerformanceLevel { get; set; }
-        public int ID { get; set; }
+        public int Id { get; set; }
         public String Unit { get; set; }
         public String Degree { get; set; }
-
+        public ObservableCollection<Publication> Publications { get; set; }
 
         public Researcher()
         {

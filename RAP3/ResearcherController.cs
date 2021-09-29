@@ -11,7 +11,6 @@ namespace RAP3
     class ResearcherController
     {
         //DatabaseAdapter referece
-        private readonly DatabaseAdapter dba;
         private List<Researcher> masterResearcherList;
         private ObservableCollection<Researcher> viewableResearcherList;
         private SearchTree tree;
@@ -74,7 +73,7 @@ namespace RAP3
         {
             CurrentlySelected = researcher;
 
-            dba.fetchFullResearcherDetails(CurrentlySelected);
+            DatabaseAdapter.FetchFullResearcherDetails(CurrentlySelected);
         }
 
     }

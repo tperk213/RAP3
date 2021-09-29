@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,12 +70,10 @@ namespace RAP3
             MySqlDataReader rdr = cmd.ExecuteReader();
             return rdr;
         }
-
         public static List<Researcher> LoadResearchers()
         {
-
             Console.WriteLine("Loading Researchers ....");
-            string cmd = "select `given_name`, `family_name`, `email`, `title`, `level` from researcher;";
+            string cmd = "select `id`, `given_name`, `family_name`, `email`, `title`, `level` from researcher;";
             MySqlDataReader rdr = RunCommand(cmd);
 
             var researcherList = new List<Researcher>();
@@ -83,6 +82,7 @@ namespace RAP3
             while (rdr.Read())
             {
                 res = new Researcher();
+                res.Id = rdr.GetInt32("id");
                 res.FirstName = rdr.GetString("given_name");
                 res.LastName = rdr.GetString("family_name");
                 res.Email = rdr.GetString("email");
@@ -103,16 +103,16 @@ namespace RAP3
                 researcherList.Add(res);
             }
 
+            conn.Close();
             return researcherList;
         }
 
 
         //Fetch full researcher details
         //
-        public void fetchFullResearcherDetails(Researcher researcher) {
-            int id = researcher.ID;
+        public static Researcher FetchFullResearcherDetails(Researcher researcher) {
 
-            string cmd = "select*from researcher where `id` = `id`";
+            string cmd = String.Format("select * from researcher where `id` = {0};", researcher.Id);
             MySqlDataReader rdr = RunCommand(cmd);
 
             if (rdr.Read())
@@ -126,10 +126,32 @@ namespace RAP3
                 researcher.CommencedInstitution = rdr.GetString("utas_start");
                 researcher.PhotoUrl = rdr.GetString("photo");
                 researcher.Unit = rdr.GetString("unit");
-                researcher.Degree = rdr.GetString("degree");
+                //researcher.Degree = rdr.GetString("degree");
             }
             rdr.Close();
+
+            researcher.Publications = DatabaseAdapter.LoadPublications(researcher);
+
+            return researcher;
         }
-       
+
+        public static ObservableCollection<Publication> LoadPublications(Researcher r)
+        {
+            ObservableCollection<Publication> publications = new ObservableCollection<Publication>();
+            string cmd = String.Format("select `title`, `doi` from `publication` where `doi` in (select `doi` from `researcher_publication` where `researcher_id` = {0});", r.Id);
+            MySqlDataReader rdr = RunCommand(cmd);
+            while (rdr.Read())
+            {
+                Publication p = new Publication();
+                p.Doi = rdr.GetString("doi");
+                p.Title = rdr.GetString("title");
+                publications.Add(p);
+            }
+            conn.Close();
+            return publications;
+
+        }
+
+
     }
 }

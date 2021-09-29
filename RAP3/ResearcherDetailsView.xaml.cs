@@ -28,6 +28,17 @@ namespace RAP3
         public void SelectResearcher(object sender, EventArgs ea)
         {
             var e = (SelectionChangedEventArgs)ea;
+
+            if (e.AddedItems.Count == 0)
+            {
+                ResearchDetails.DataContext = null;
+            }
+            else
+            {
+                Researcher r = DatabaseAdapter.FetchFullResearcherDetails((Researcher)e.AddedItems[0]);
+                ResearchDetails.DataContext = r;
+                PublicationLists.DataContext = r.Publications;
+            }
             
         }
     }
