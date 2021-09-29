@@ -131,6 +131,7 @@ namespace RAP3
             rdr.Close();
 
             researcher.Publications = DatabaseAdapter.LoadPublications(researcher);
+            researcher.Positions = DatabaseAdapter.GetPositionHistory(researcher);
 
             return researcher;
         }
@@ -149,6 +150,24 @@ namespace RAP3
             }
             conn.Close();
             return publications;
+
+        }
+
+        //get position details
+        public static ObservableCollection<Position> GetPositionHistory(Researcher r)
+        {
+            ObservableCollection<Position> position = new ObservableCollection<Position>();
+            string cmd = String.Format("select `start`,`end` from position where `id` = {0};", r.Id);
+            MySqlDataReader rdr = RunCommand(cmd);
+            while (rdr.Read())
+            {
+                Position p = new Position();
+                p.start = rdr.GetString("start");
+                //p.end = rdr.GetString("end");
+                position.Add(p);
+            }
+            conn.Close();
+            return position;
 
         }
 
