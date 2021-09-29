@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RAP3"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800">
 
     <StackPanel x:Name="ResearchDetails" Grid.Column="1" Margin="10,10,10,10">
 
@@ -56,10 +56,22 @@
                 <Label Grid.Row="7" Grid.Column="1" Content="{Binding Path=CommencedCurrentPosition}" />
             </Grid>
 
-            <Image Source="{Binding Path=PhotoUrl}" Grid.Column="1" Width="120" VerticalAlignment="Top" />
+            <Image Source="{Binding Path=PhotoUrl}" Grid.Column="1" Width="120" Height="120" VerticalAlignment="Top" />
         </Grid>
         <StackPanel Orientation="Vertical">
             <Label Content="Previous Positions:"/>
+            <Grid>
+               
+                <DataGrid x:Name="PrePositions" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Start" Binding="{Binding Path=start}"/>
+                        <DataGridTextColumn Header="End" Binding="{Binding Path=end}"/>
+                        <DataGridTextColumn Header="Position" Binding="{Binding Path=position}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            
+            
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Tenure:"/>
@@ -73,7 +85,7 @@
                     <Label Content="Supervisior"/>
                     <Label Content="{Binding Path=Supervisor}"/>
                 </StackPanel>
-                
+
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="No. of Publications:"/>
@@ -87,8 +99,8 @@
                         <Button Content="Show Names"/>
                     </StackPanel>
                 </StackPanel>
-                
-                
+
+
             </StackPanel>
 
             <StackPanel>
@@ -97,7 +109,7 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Publications" DisplayMemberBinding="{Binding Title}"/>
-
+                            <GridViewColumn Header="DOI" DisplayMemberBinding="{Binding Doi}"/>
                         </GridView>
                     </ListView.View>
 

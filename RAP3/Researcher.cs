@@ -81,6 +81,7 @@ namespace RAP3
         public String Unit { get; set; }
         public String Degree { get; set; }
         public ObservableCollection<Publication> Publications { get; set; }
+        public ObservableCollection<Position> Positions { get; set; }
 
         public Researcher()
         {

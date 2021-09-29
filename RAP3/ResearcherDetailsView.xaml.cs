@@ -37,7 +37,9 @@ namespace RAP3
             {
                 Researcher r = DatabaseAdapter.FetchFullResearcherDetails((Researcher)e.AddedItems[0]);
                 ResearchDetails.DataContext = r;
-                PublicationLists.DataContext = r.Publications;
+                PrePositions.ItemsSource = r.Positions;
+                PublicationLists.ItemsSource = r.Publications;
+                Console.WriteLine(r);
             }
             
         }
