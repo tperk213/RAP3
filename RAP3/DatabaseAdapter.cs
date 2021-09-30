@@ -5,7 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-namespace RAP3
+using RAP3.View;
+using RAP3.Teaching;
+
+namespace RAP3.DBAdapter
 {
     abstract class DatabaseAdapter
     {

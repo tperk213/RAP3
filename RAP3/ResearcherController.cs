@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
-namespace RAP3
+namespace RAP3.Control
 {
     class ResearcherController
     {

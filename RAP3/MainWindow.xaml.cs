@@ -13,7 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RAP3
+
+namespace RAP3.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

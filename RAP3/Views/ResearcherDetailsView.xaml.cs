@@ -12,8 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RAP3;
 
-namespace RAP3
+namespace RAP3.View
 {
     /// <summary>
     /// Interaction logic for ResearcherDetailsView.xaml

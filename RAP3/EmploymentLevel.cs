@@ -1,6 +1,6 @@
 ﻿
 
-namespace RAP3
+namespace RAP3.Teaching
 {
     enum EmploymentLevel
     {

@@ -12,8 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RAP3;
+using RAP3.Control;
 
-namespace RAP3
+namespace RAP3.View
 {
     /// <summary>
     /// Interaction logic for ResearchListControl.xaml

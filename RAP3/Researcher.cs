@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RAP3
+namespace RAP3.Teaching
 {
 
 
