@@ -64,9 +64,10 @@
                
                 <DataGrid x:Name="PrePositions" AutoGenerateColumns="False">
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="Position" Binding="{Binding Path=position}"/>
                         <DataGridTextColumn Header="Start" Binding="{Binding Path=start}"/>
                         <DataGridTextColumn Header="End" Binding="{Binding Path=end}"/>
-                        <DataGridTextColumn Header="Position" Binding="{Binding Path=position}"/>
+                        
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -76,8 +77,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Tenure:"/>
                     <Label Content="{Binding Path=Tenure}"/>
-                    <Label Content="3-year average:"/>
-                    <Label Content="{Binding Path=ThreeYearAvg}"/>
+           
                     <Label Content="Performance:"/>
                     <Label Content="{Binding Path=getPerformance}"/>
                     <Label Content="Degree:"/>
@@ -87,11 +87,6 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="No. of Publications:"/>
-                        <Label Content="{Binding Path=PublicationCount}"/>
-                        <Button Content="Cumulutive Count"/>
-                    </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <Label Content="supervisions:"/>
@@ -103,8 +98,14 @@
 
             </StackPanel>
 
-            <StackPanel>
-
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" x:Name="Performance">
+                    <Label Content="3-year average:"/>
+                    <Label Content="{Binding ThreeYearAvg}"/>
+                    <Label Content="No. of Publications:"/>
+                    <Label Content="{Binding NumberOfPublication}"/>
+                    <Button Content="Cumulutive Count"/>
+                </StackPanel>
                 <ListView Grid.Column="0" x:Name="PublicationLists">
                     <ListView.View>
                         <GridView>

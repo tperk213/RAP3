@@ -15,18 +15,25 @@ using System.Windows.Shapes;
 
 namespace RAP3
 {
+
     /// <summary>
     /// Interaction logic for ResearcherDetailsView.xaml
     /// </summary>
     public partial class ResearcherDetailsView : UserControl
     {
+        private ResearcherController researcherController;
+
+       
         public ResearcherDetailsView()
         {
             InitializeComponent();
+            researcherController = (ResearcherController)Application.Current.FindResource("researcherController");
+
         }
 
         public void SelectResearcher(object sender, EventArgs ea)
         {
+            
             var e = (SelectionChangedEventArgs)ea;
 
             if (e.AddedItems.Count == 0)
@@ -35,9 +42,11 @@ namespace RAP3
             }
             else
             {
-                Researcher r = DatabaseAdapter.FetchFullResearcherDetails((Researcher)e.AddedItems[0]);
+                //Researcher r = DatabaseAdapter.FetchFullResearcherDetails((Researcher)e.AddedItems[0]);
+                Researcher r = researcherController.GetResearcherDetails((Researcher)e.AddedItems[0]);
                 ResearchDetails.DataContext = r;
                 PrePositions.ItemsSource = r.Positions;
+                Performance.DataContext = r.Publications;
                 PublicationLists.ItemsSource = r.Publications;
                 Console.WriteLine(r);
             }

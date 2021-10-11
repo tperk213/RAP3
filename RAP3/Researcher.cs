@@ -73,10 +73,25 @@ namespace RAP3
         public String PhotoUrl { get; set; }
         public String CommencedInstitution { get; set; }
         public String CommencedCurrentPosition { get; set; }
-        public Double Tenure { get; set; }
-        public int NumberOfPublications { get; set; }
-        public int Average { get; set; }
-        public int PerformanceLevel { get; set; }
+
+        public string Tenure { get; set; }
+
+        //Calculate tenure
+        public void getTenure()
+        {
+            DateTime currDate = DateTime.Today;
+            DateTime commencedDate = DateTime.Parse(CommencedInstitution);
+
+            TimeSpan T = currDate.Subtract(commencedDate);
+
+            Tenure =  (T.TotalDays / 360).ToString("0.00 years");
+        }
+       
+
+        //public int NumberOfPublications { get; set; }
+        //public int ThreeYearAverage { get; set; }
+
+        //public int PerformanceLevel { get; set; }
         public int Id { get; set; }
         public String Unit { get; set; }
         public String Degree { get; set; }
@@ -97,7 +112,5 @@ namespace RAP3
         {
             FormalName = LastName + ", " + FirstName + " (" + Title + ")";
         }
-
-
     }
 }

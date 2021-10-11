@@ -15,6 +15,7 @@ namespace RAP3
         private ObservableCollection<Researcher> viewableResearcherList;
         private SearchTree tree;
 
+        private Researcher researcherDetails;
         public Researcher CurrentlySelected { get; private set; }
 
         public ResearcherController()
@@ -32,8 +33,6 @@ namespace RAP3
             
 
         }
-
-        
 
         public ObservableCollection<Researcher> GetResearchers()
         {
@@ -68,13 +67,37 @@ namespace RAP3
         }
 
 
-        //Get all the details of selected researcher
-        public void SelectItem(Researcher researcher)
+        //fetch researcher details
+        public Researcher GetResearcherDetails(Researcher researcher)
         {
             CurrentlySelected = researcher;
 
-            DatabaseAdapter.FetchFullResearcherDetails(CurrentlySelected);
+            researcherDetails = DatabaseAdapter.FetchFullResearcherDetails(CurrentlySelected);
+
+            return researcherDetails;
         }
 
+
+        //Calculate Tenure
+        public void getTenure()
+        {
+
+        }
+
+        //Calculate three year Average publications
+        public void getThreeYearAvg()
+        {
+           
+            ObservableCollection<Publication> publications = researcherDetails.Publications;
+
+            //var threeYrCount = from publication in publications where 
+        }
+
+
+        //Calculate Performance
+        public void getPerformance()
+        {
+
+        }
     }
 }

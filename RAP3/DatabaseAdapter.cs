@@ -33,27 +33,7 @@ namespace RAP3
                 conn = new MySqlConnection(connectionString);
             }
         }
-        /* public DatabaseHandler()
-         {
-             server = "alacritas.cis.utas.edu.au";
-             database = "kit206";
-             uid = "kit206";
-             password = "kit206";
-
-             Console.WriteLine("Connecting to Database ....");
-             string connectionString = String.Format("Database={0}; Data Source={1}; User Id ={2}; Password={3}; SSL Mode=0",
-                 database, server, uid, password);
-             try
-             {
-                 conn = new MySqlConnection(connectionString);
-             }
-             catch (Exception e)
-             {
-                 Console.WriteLine("Exception caught {0}", e);
-             }
-             Console.WriteLine("Database connection established ....");
-
-         }*/
+        
 
         public static MySqlDataReader RunCommand(String command)
         {
@@ -126,7 +106,17 @@ namespace RAP3
                 researcher.CommencedInstitution = rdr.GetString("utas_start");
                 researcher.PhotoUrl = rdr.GetString("photo");
                 researcher.Unit = rdr.GetString("unit");
-                //researcher.Degree = rdr.GetString("degree");
+                researcher.getTenure();
+
+                //Checks if the degree is null
+                if (rdr.IsDBNull(rdr.GetOrdinal("degree")))
+                {
+                    researcher.Degree = "NA";
+                }
+                else
+                {
+                    researcher.Degree = rdr.GetString("degree");
+                }
             }
             rdr.Close();
 
@@ -139,16 +129,46 @@ namespace RAP3
         public static ObservableCollection<Publication> LoadPublications(Researcher r)
         {
             ObservableCollection<Publication> publications = new ObservableCollection<Publication>();
-            string cmd = String.Format("select `title`, `doi` from `publication` where `doi` in (select `doi` from `researcher_publication` where `researcher_id` = {0});", r.Id);
+            Publication p = new Publication();
+            string cmd = String.Format("select `title`, `doi`, `year` from `publication` where `doi` in (select `doi` from `researcher_publication` where `researcher_id` = {0});", r.Id);
             MySqlDataReader rdr = RunCommand(cmd);
             while (rdr.Read())
             {
-                Publication p = new Publication();
                 p.Doi = rdr.GetString("doi");
                 p.Title = rdr.GetString("title");
+                p.PublicationYear = rdr.GetString("year");
                 publications.Add(p);
             }
             conn.Close();
+
+            //get publication count
+            string query = String.Format("select count(*) as numofpub from `publication` where `doi` in (select `doi` from `researcher_publication` where `researcher_id` = {0}); ", r.Id);
+            MySqlDataReader reader = RunCommand(query);
+
+            while (reader.Read())
+            {
+                p.NumberOfPublication = reader.GetInt32("numofpub");
+                publications.Add(p);
+            }
+            conn.Close();
+          
+            //Get number of publication within last 3 years
+            string query1 = String.Format("select count(`year`) as threeyearpub from `publication` where(year(`year`) <= year(now()) - 3 and `doi` in (select `doi` from `researcher_publication` where `researcher_id` = {0}));", r.Id);
+            MySqlDataReader reader1 = RunCommand(query1);
+
+            while (reader1.Read())
+            {
+                int threeyearCount = reader1.GetInt32("threeyearpub");
+
+                string avg = (threeyearCount/3).ToString("0.0");
+
+                p.ThreeYearAvg = avg;
+
+                publications.Add(p);
+            }
+
+            conn.Close();
+
             return publications;
 
         }
@@ -157,15 +177,39 @@ namespace RAP3
         public static ObservableCollection<Position> GetPositionHistory(Researcher r)
         {
             ObservableCollection<Position> position = new ObservableCollection<Position>();
-            string cmd = String.Format("select `start`,`end` from position where `id` = {0};", r.Id);
+            string cmd = String.Format("select `start`,`end`, `level` from position where `id` = {0};", r.Id);
             MySqlDataReader rdr = RunCommand(cmd);
             while (rdr.Read())
             {
                 Position p = new Position();
                 p.start = rdr.GetString("start");
-                //p.end = rdr.GetString("end");
+
+                //Checks if end date exits
+                if (rdr.IsDBNull(rdr.GetOrdinal("end")))
+                {
+                    p.end = "Current";
+                }
+                else
+                {
+                    p.end = rdr.GetString("end");
+                }
+
+                //get employment level and map with employment enum
+                EmploymentLevel level;
+                if (rdr.IsDBNull(rdr.GetOrdinal("level")))
+                {
+                    level = EmploymentLevel.Student;
+                }
+                else
+                {
+                    level = CharToEmploymentLevel[rdr.GetChar("level")];
+                }
+
+                p.Level = level;
+
                 position.Add(p);
             }
+
             conn.Close();
             return position;
 
